@@ -1,13 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-incrementador',
   templateUrl: './incrementador.component.html',
   styles: ``
 })
-export class IncrementadorComponent {
+export class IncrementadorComponent implements OnInit{
+  ngOnInit(): void {
+    this.btnClass = `btn ${this.btnClass}`;
+  }
   
   @Input('valor') progreso: number = 30;
+  @Input() btnClass: string = 'btn btn-primary';
 
   @Output('valor') valorSalida: EventEmitter<number> = new EventEmitter();
 
@@ -23,8 +27,16 @@ export class IncrementadorComponent {
       this.valorSalida.emit(0)
        this.progreso= 0;
     }
-    
+  }
+  onChange(valor:number){
+    if( valor >= 100){
+      this.progreso = 100;
+    } else if (valor <=0){
+      this.progreso=0;
+    } else {
+      this.progreso = valor;
+    }
 
-    
+    this.valorSalida.emit(this.progreso);
   }
 }

@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 
 
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -23,14 +22,13 @@ import { ComponentsModule } from '../components/components.module';
     SharedModule,
     AppRoutingModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    
   ]
 })
 export class PagesModule { }
