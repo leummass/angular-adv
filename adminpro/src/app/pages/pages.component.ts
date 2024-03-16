@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { SettingsService } from '../services/settings.service';
+
+declare function custonInitFunctuions():any;
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styles: ``
+  styles: ``,
 })
 export class PagesComponent {
 
+  constructor(private settingsService: SettingsService) {}
+  ngOnInit(): void {
+    custonInitFunctuions();
+  }
 }
