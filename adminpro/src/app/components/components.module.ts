@@ -11,7 +11,7 @@ import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
   ],
   imports: [
     CommonModule,
