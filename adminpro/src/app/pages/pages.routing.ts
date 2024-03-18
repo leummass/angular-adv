@@ -8,31 +8,49 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-
-
 const routes: Routes = [
-    {
-        path: 'dashboard',
-        component: PagesComponent,
-        children: [
-          { path: '', component: DashboardComponent },
-          { path: 'account-settings', component: AccountSettingsComponent },
-          { path: 'grafica1', component: Grafica1Component },
-          { path: 'progress', component: ProgressComponent },
-          { path: 'promesas', component: PromesasComponent},
-          { path: 'rxjs', component: RxjsComponent},
-        ],
+  {
+    path: 'dashboard',
+    component: PagesComponent,
+    children: [
+      {
+        path: '',
+        component: DashboardComponent,
+        data: { titulo: 'Dashboard' },
       },
+      {
+        path: 'account-settings',
+        component: AccountSettingsComponent,
+        data: { titulo: 'Configuración de tema' },
+      },
+      {
+        path: 'grafica1',
+        component: Grafica1Component,
+        data: { titulo: 'Gráfica #1' },
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { titulo: 'Progreso' },
+      },
+      {
+        path: 'promesas',
+        component: PromesasComponent,
+        data: { titulo: 'Promesas' },
+      },
+      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJS' } },
+    ],
+  },
 
-    //{ path: 'path/:routeParam', component: MyComponent },
-    //{ path: 'staticPath', component: ... },
-    //{ path: '**', component: ... },
-    //{ path: 'oldPath', redirectTo: '/staticPath' },
-    //{ path: ..., component: ..., data: { message: 'Custom' }
+  //{ path: 'path/:routeParam', component: MyComponent },
+  //{ path: 'staticPath', component: ... },
+  //{ path: '**', component: ... },
+  //{ path: 'oldPath', redirectTo: '/staticPath' },
+  //{ path: ..., component: ..., data: { message: 'Custom' }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class PagesRoutingModule {}
