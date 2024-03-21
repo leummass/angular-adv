@@ -10,11 +10,13 @@ const {
     getUsuarios,
     crearUsuario,
     actualizarUsuario,
+    borrarUsuario,
 } = require("../controllers/usuarios.controller");
+const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router();
 
-router.get("/", getUsuarios);
+router.get("/", validarJWT, getUsuarios);
 
 router.post(
     "/",
@@ -31,11 +33,15 @@ router.post(
 router.put(
     "/:id",
     [
-        check("nombre", "El nombre es obligatorio").not().isEmpty(), 
+        validarJWT,
+        check("nombre", "El nombre es obligatorio").not().isEmpty(),
         check("email", "El Email es obligatorio").isEmail(),
-		check("role", "El rol es obligatorio").not().isEmpty(), 
+        check("role", "El rol es obligatorio").not().isEmpty(),
+        validarCampos,
     ],
     actualizarUsuario
 );
+
+router.delete("/:id", validarJWT, borrarUsuario);
 
 module.exports = router;
