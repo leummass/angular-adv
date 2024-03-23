@@ -11,7 +11,7 @@ const {
     actualizarHospital,
     crearHospital,
     borrarHospital,
-} = require('../controllers/hospitales.controller')
+} = require("../controllers/hospitales.controller");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router();
@@ -21,18 +21,16 @@ router.get("/", getHospitales);
 router.post(
     "/",
     [
+        validarJWT,
+        check("nombre", "El nombre del hospital es necesario").not().isEmpty(),
+        validarCampos,
     ],
     crearHospital
     //los middlewares se definen antes de la función del controlador, si es más de uno se utilizan corchetes
 );
 
-router.put(
-    "/:id",
-    [
-    ],
-    actualizarHospital
-);
+router.put("/:id", [], actualizarHospital);
 
-router.delete("/:id",  borrarHospital);
+router.delete("/:id", borrarHospital);
 
 module.exports = router;

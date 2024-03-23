@@ -21,6 +21,10 @@ router.get("/", getMedicos);
 router.post(
     "/",
     [
+        validarJWT,
+        check("nombre", "El nombre del medico es necesario").not().isEmpty(),
+        check("hospital", "El hospital id debe ser válido").isMongoId(),
+        validarCampos,
     ],
     crearMedico
     //los middlewares se definen antes de la función del controlador, si es más de uno se utilizan corchetes
