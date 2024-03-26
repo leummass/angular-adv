@@ -1,7 +1,6 @@
 const { response } = require("express");
 
 const Medico = require("../models/medico");
-const { generarJWT } = require("../helpers/jwt");
 const Hospital = require("../models/hospital");
 
 const getMedicos = async (req, res = response) => {
@@ -49,18 +48,69 @@ const crearMedico = async (req, res = response) => {
     }
 };
 
-const actualizarMedico = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: "actualizarMedico",
-    });
+const actualizarMedico = async (req, res = response) => {
+    const id = req.params.id;
+    const uid = req.uid;
+    const { hospital, nombre } = req.body;
+    try {
+        const medicoBD = await Medico.findById(id);
+        if (!medicoBD) {
+            return res.status(404).json({
+                ok: false,
+                msg: "No se encontró médico con ese id",
+            });
+        }
+
+        const cambiosMedico = {
+            ...req.body,
+            usuario: uid,
+        };
+
+        const medicoActualizado = await Medico.findByIdAndUpdate(
+            id,
+            cambiosMedico,
+            { new: true }
+        );
+
+        res.json({
+            ok:true,
+            msg:'Médico actualizado',
+            medicoActualizado,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: true,
+            msg: "Hable con el administrador",
+        });
+    }
+    
 };
 
-const borrarMedico = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: "borrarMedico",
-    });
+const borrarMedico = async(req, res = response) => {
+    const id = req.params.id;
+    try {
+        const medicoBD = await Medico.findById(id);
+
+        if(!medicoBD){
+            return res.status(404).json({
+                ok: false,
+                msg: "No se encontró médico con ese id",
+            });
+        }
+        await Medico.findByIdAndDelete(id);
+        res.json({
+            ok: true,
+            msg: "Médico eliminado",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: "Hable con el administrador",
+        });
+    }
+    
 };
 
 module.exports = {
