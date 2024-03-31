@@ -278,7 +278,7 @@
         <!-- ============================================================== -->
         <!-- End Messages -->
         <!-- ============================================================== -->
-       
+
         <!-- ============================================================== -->
         <!-- Language -->
         <!-- ============================================================== -->
@@ -292,7 +292,9 @@
           >
             <i class="flag-icon flag-icon-us"></i
           ></a>
-          <div class="dropdown-menu dropdown-menu-right animated-fast bounceInDown">
+          <div
+            class="dropdown-menu dropdown-menu-right animated-fast bounceInDown"
+          >
             <a class="dropdown-item" href="#"
               ><i class="flag-icon flag-icon-in"></i> India</a
             >
@@ -352,11 +354,15 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a routerLink="account-settings"><i class="ti-settings"></i> Account Setting</a>
+                <a routerLink="account-settings"
+                  ><i class="ti-settings"></i> Account Setting</a
+                >
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a routerLink="/login"><i class="fa fa-power-off"></i> Logout</a>
+                <a class="cursor" (click)="logout()"
+                  ><i class="fa fa-power-off"></i> Logout</a
+                >
               </li>
             </ul>
           </div>

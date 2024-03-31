@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+
+import { UsuarioService } from '../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,24 +19,38 @@ export class RegisterComponent {
       email: ['tester123@gmail.com', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', Validators.required],
-      terminos: [false, Validators.required],
+      terminos: [false, Validators.requiredTrue],
     },
     {
       validators: this.passwordIguales,
     }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {}
 
   crearUsuario() {
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
 
-    if (this.registerForm.valid) {
-      console.log('Posteando formulario');
-    } else {
-      console.log('Formulario no es correcto');
+    if (this.registerForm.invalid) {
+      return;
     }
+    
+    //realizar inserción
+    this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
+      next: (resp) => {
+        this.router.navigateByUrl('/');
+        //console.log('Usuario creado');
+        //console.log(resp);
+      },
+      error: (err) => {
+        //Manejo del error
+        Swal.fire('Error', err.error.msg, 'error');
+      },
+    });
   }
 
   campoNoValido(campo: string): boolean {
