@@ -99,7 +99,7 @@ const actualizarUsuario = async (req, res = response) => {
 
         res.json({
             ok: true,
-            uid: usuarioActualizado,
+            usuario: usuarioActualizado,
         });
     } catch (error) {
         console.log(error);
