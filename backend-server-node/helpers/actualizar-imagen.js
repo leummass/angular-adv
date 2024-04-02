@@ -35,7 +35,7 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
                 return false;
             }
             if (usuario.img != "") {
-                pathViejo = `./uploads/medicos/${usuario.img}`;
+                pathViejo = `./uploads/usuarios/${usuario.img}`;
                 borrarImagen(pathViejo);
             }
 
@@ -50,7 +50,7 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
                 return false;
             }
             if (medico.img != "") {
-                pathViejo = `./uploads/medicos/${hospital.img}`;
+                pathViejo = `./uploads/hospitales/${hospital.img}`;
                 borrarImagen(pathViejo);
             }
 
