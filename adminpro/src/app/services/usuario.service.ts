@@ -32,6 +32,14 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      }
+    }
+  }
+
   logout() {
     const email = localStorage.getItem('email2') || '';
     localStorage.removeItem('token');
@@ -105,5 +113,9 @@ export class UsuarioService {
         localStorage.setItem('token', resp.token);
       })
     );
+  }
+
+  cargarUsuarios(desde: number = 0){
+    return this.http.get(`${base_url}/usuarios?desde=${desde}`, this.headers)
   }
 }
